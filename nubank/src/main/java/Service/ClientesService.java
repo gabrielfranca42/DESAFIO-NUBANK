@@ -2,6 +2,8 @@ package Service;
 
 import Dto.ClientesDTO;
 import Dto.ClientesResponseDTO;
+import Dto.ContatoDTO;
+import Dto.ContatoResponseDTO;
 import Model.Cadastro_Cliente;
 import Model.Cadastro_Contato;
 import Reporitory.ClienteRepository;
@@ -34,12 +36,38 @@ public class ClientesService {
     }
 
     public List<ClientesResponseDTO> listarTodos(){
-        return clienteRepository.findAll().stream().map(mapper:null)
+        return clienteRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
     }
+
+
+    public List<ContatoResponseDTO> listarContatosPorCliente(Long clienteId){
+
+        Cadastro_Cliente cadastroCliente = clienteRepository.findById(clienteId)
+                                           .orElseThrow(()-> new RuntimeException("cliente nao encontrado"));
+        return cadastroCliente.getCadastro_contato().stream().map(c->{
+            ContatoResponseDTO dto = new ContatoResponseDTO();
+            dto.setId(c.getId());
+            dto.setTelefone(c.getTelefone());
+            dto.setEmail(c.getEmail());
+            return dto;
+        }).collect(Collectors.toList());
+    }
+
+
 
     private ClientesResponseDTO toDTO(Cadastro_Cliente cadastroCliente){
         ClientesResponseDTO dto = new ClientesResponseDTO();
         dto.setId(cadastroCliente.getId());
+
+        List<ContatoResponseDTO> cadastrocontato = dto.getCadastro_contato().stream().map(c -> {
+            ContatoResponseDTO contatoDTO = new ContatoResponseDTO();
+            contatoDTO.setId(c.getId());
+            contatoDTO.setTelefone(c.getTelefone());
+            contatoDTO.setEmail(c.getEmail());
+            return contatoDTO;
+        }).collect(Collectors.toList());
+
+        return dto;
     }
 
 
