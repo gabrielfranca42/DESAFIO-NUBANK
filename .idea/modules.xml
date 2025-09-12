@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/nubank.iml" filepath="$PROJECT_DIR$/.idea/nubank.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nubank/nubank.iml" filepath="$PROJECT_DIR$/nubank/nubank.iml" />
     </modules>
   </component>
 </project>
