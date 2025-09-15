@@ -12,6 +12,7 @@ import lombok.Setter;
 @Setter
 public class ContatoDTO {
 
+    private Long id ;
     private String telefone;
     private String email;
     private String clienteId;

@@ -13,11 +13,10 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-
-
 public class ClientesDTO {
 
 
+    private Long id;
     private String nome;
     private List<ContatoDTO> cadastro_contato;
 }
